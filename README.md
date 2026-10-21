@@ -7,3 +7,8 @@
 3. What is the alternative read props in component apart from destructuring.
 4. Read more about key when rendering a list. See Example 5 as reference.
 5. See Example6 for the problem.
+
+### Day-02
+1. In Practice1.jsx, replace timerRef with boolean value and notice the behaviour change. This practice will help you clear concepts of useRef.
+2. In UserProfile.jsx, remove the depedency array of useEffect completely and notice the behaviour.
+3. In Practice3.jsx, remove useMemo, memo, useCallback and replace with the functions directly. And notice the behaviour.
