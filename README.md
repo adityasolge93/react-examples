@@ -12,3 +12,6 @@
 1. In Practice1.jsx, replace timerRef with boolean value and notice the behaviour change. This practice will help you clear concepts of useRef.
 2. In UserProfile.jsx, remove the depedency array of useEffect completely and notice the behaviour.
 3. In Practice3.jsx, remove useMemo, memo, useCallback and replace with the functions directly. And notice the behaviour.
+
+### Day-03
+1. In Login.jsx file, comment `event.preventDefault()` line and notice the behaviour. Take help from AI if needed to understand it. But do google search first!
