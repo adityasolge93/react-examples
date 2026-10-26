@@ -15,3 +15,4 @@
 
 ### Day-03
 1. In Login.jsx file, comment `event.preventDefault()` line and notice the behaviour. Take help from AI if needed to understand it. But do google search first!
+2. Implement conditional rendering based on the presence or absence of user object. If user object is null, redirect user to Login even if the route is /dashboard. If user object is not empty, redirect user to Dashboard even if the route is /login.

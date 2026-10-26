@@ -8,8 +8,11 @@
  */
 
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function Login() {
+function Login({ updateUserDetails }) {
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -54,7 +57,10 @@ function Login() {
             // For now, we're hardcoding validation business logic
             if (formData.email === 'test@test.com' && formData.password === 'test') {
                 // We need to perform redirection
-                setMessage('Valid Credentials');
+                
+                // This will come from API call.
+                const user = { name: 'John', email: 'test@test.com' };
+                updateUserDetails(user);
             } else {
                 setErrors({ message: 'Invalid Credentials'});
             }
