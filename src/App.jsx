@@ -1,6 +1,5 @@
 // Developer's entry point. Start writing business logic from
 // here.
-import { useState } from 'react';
 import { Route, Routes } from "react-router-dom";
 import Home from './pages/Home';
 import Practice1 from './pages/Practice1';
@@ -12,13 +11,10 @@ import Dashboard from './pages/Dashboard';
 import AppLayout from './components/AppLayout';
 import { Navigate } from 'react-router-dom';
 import { AuthContext } from './context/AuthContext';
+import { useContext } from 'react';
 
 function App() {
-    const [user, setUser] = useState(null);
-
-    const updateUserDetails = (updatedUser) => {
-        setUser(updatedUser);
-    };
+    const { user } = useContext(AuthContext);
 
     return (
         /** 
@@ -26,28 +22,26 @@ function App() {
          * If user object is null, redirect user to Login even if the route is /dashboard.
          * If user object is not empty, redirect user to Dashboard even if the route is /login.
          **/
-        <AuthContext.Provider value={user}>
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/practice-1" element={<Practice1 />} />
-                <Route path="/practice-2" element={<Practice2 />} />
-                <Route path="/practice-3" element={<Practice3 />} />
-                <Route path="/practice-4" element={<Practice4 />} />
-                <Route path="/practice-5" element={user ? 
-                        <Navigate to="/dashboard" /> : 
-                        <AppLayout>
-                            <Login updateUserDetails={updateUserDetails} />
-                        </AppLayout>
-                        } 
-                />
-                <Route path="/dashboard" element={user ? 
-                        <AppLayout>
-                            <Dashboard />
-                        </AppLayout>
-                        : <Navigate to="/practice-5" />} 
-                />
-            </Routes>
-        </AuthContext.Provider>
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/practice-1" element={<Practice1 />} />
+            <Route path="/practice-2" element={<Practice2 />} />
+            <Route path="/practice-3" element={<Practice3 />} />
+            <Route path="/practice-4" element={<Practice4 />} />
+            <Route path="/practice-5" element={user ? 
+                    <Navigate to="/dashboard" /> : 
+                    <AppLayout>
+                        <Login />
+                    </AppLayout>
+                    } 
+            />
+            <Route path="/dashboard" element={user ? 
+                    <AppLayout>
+                        <Dashboard />
+                    </AppLayout>
+                    : <Navigate to="/practice-5" />} 
+            />
+        </Routes>
     );
 }
 

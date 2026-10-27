@@ -2,7 +2,7 @@ import { AuthContext } from '../context/AuthContext';
 import { useContext } from 'react';
 
 function Dashboard() {
-    const user = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
 
     return (
         <div>

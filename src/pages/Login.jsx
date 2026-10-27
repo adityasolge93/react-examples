@@ -7,10 +7,12 @@
  *      5. [X] Message handling: failure/success messages.
  */
 
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 
-function Login({ updateUserDetails }) {
+function Login() {
+    const { login } = useContext(AuthContext);
+
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -58,8 +60,7 @@ function Login({ updateUserDetails }) {
                 
                 // This will come from API call.
                 const user = { name: 'John', email: 'test@test.com' };
-                // Hint Practice-1 of Day-04: Add logic to write to Local Storage here.
-                updateUserDetails(user);
+                login(user);
             } else {
                 setErrors({ message: 'Invalid Credentials'});
             }
