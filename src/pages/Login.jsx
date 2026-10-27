@@ -11,8 +11,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Login({ updateUserDetails }) {
-    const navigate = useNavigate();
-
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -60,6 +58,7 @@ function Login({ updateUserDetails }) {
                 
                 // This will come from API call.
                 const user = { name: 'John', email: 'test@test.com' };
+                // Hint Practice-1 of Day-04: Add logic to write to Local Storage here.
                 updateUserDetails(user);
             } else {
                 setErrors({ message: 'Invalid Credentials'});

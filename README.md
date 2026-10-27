@@ -16,3 +16,9 @@
 ### Day-03
 1. In Login.jsx file, comment `event.preventDefault()` line and notice the behaviour. Take help from AI if needed to understand it. But do google search first!
 2. Implement conditional rendering based on the presence or absence of user object. If user object is null, redirect user to Login even if the route is /dashboard. If user object is not empty, redirect user to Dashboard even if the route is /login.
+
+### Day-04
+1. Read about localStorage and store user object in localstorage in addition to state variable when the user successfully logs in.
+
+## Notes
+1. State Variables: React wipe out/erase all state variables on hard refresh. Hard refresh meaning whenever we perform reload of the page from the browser or click `Ctrl + R`.

@@ -9,6 +9,9 @@ import Practice3 from './pages/Practice3';
 import Practice4 from './pages/Practice4';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import AppLayout from './components/AppLayout';
+import { Navigate } from 'react-router-dom';
+import { AuthContext } from './context/AuthContext';
 
 function App() {
     const [user, setUser] = useState(null);
@@ -19,19 +22,32 @@ function App() {
 
     return (
         /** 
-         * Practice: Implement conditional rendering based on the presence or absence of user object.
+         * Day-03: Practice: Implement conditional rendering based on the presence or absence of user object.
          * If user object is null, redirect user to Login even if the route is /dashboard.
          * If user object is not empty, redirect user to Dashboard even if the route is /login.
          **/
-        <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/practice-1" element={<Practice1 />} />
-            <Route path="/practice-2" element={<Practice2 />} />
-            <Route path="/practice-3" element={<Practice3 />} />
-            <Route path="/practice-4" element={<Practice4 />} />
-            <Route path="/practice-5" element={<Login updateUserDetails={updateUserDetails} />} />
-            <Route path="/dashboard" element={<Dashboard user={user} />} />
-        </Routes>
+        <AuthContext.Provider value={user}>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/practice-1" element={<Practice1 />} />
+                <Route path="/practice-2" element={<Practice2 />} />
+                <Route path="/practice-3" element={<Practice3 />} />
+                <Route path="/practice-4" element={<Practice4 />} />
+                <Route path="/practice-5" element={user ? 
+                        <Navigate to="/dashboard" /> : 
+                        <AppLayout>
+                            <Login updateUserDetails={updateUserDetails} />
+                        </AppLayout>
+                        } 
+                />
+                <Route path="/dashboard" element={user ? 
+                        <AppLayout>
+                            <Dashboard />
+                        </AppLayout>
+                        : <Navigate to="/practice-5" />} 
+                />
+            </Routes>
+        </AuthContext.Provider>
     );
 }
 
