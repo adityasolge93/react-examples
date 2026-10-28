@@ -9,9 +9,11 @@
 
 import { useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { useDispatch } from 'react-redux';
 
 function Login() {
-    const { login } = useContext(AuthContext);
+    // const { login } = useContext(AuthContext);
+    const dispatch = useDispatch();
 
     const [formData, setFormData] = useState({
         email: '',
@@ -60,7 +62,11 @@ function Login() {
                 
                 // This will come from API call.
                 const user = { name: 'John', email: 'test@test.com' };
-                login(user);
+                // login(user);
+                dispatch({
+                    type: 'LOGIN',
+                    payload: user
+                });
             } else {
                 setErrors({ message: 'Invalid Credentials'});
             }

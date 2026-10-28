@@ -20,5 +20,9 @@
 ### Day-04
 1. Read about localStorage and store user object in localstorage in addition to state variable when the user successfully logs in.
 
+### Day-05
+1. Learn difference between `@reduxjs/toolkit` and `react-redux` and what is the need for two separate dependency.
+2. Manage two states in the redux. Essentially one more state in addition to user. And then notice the behaviour as you change the values. Hint: Look at the purpose of state and action in the reducer function.
+
 ## Notes
 1. State Variables: React wipe out/erase all state variables on hard refresh. Hard refresh meaning whenever we perform reload of the page from the browser or click `Ctrl + R`.

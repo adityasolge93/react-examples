@@ -12,9 +12,17 @@ import AppLayout from './components/AppLayout';
 import { Navigate } from 'react-router-dom';
 import { AuthContext } from './context/AuthContext';
 import { useContext } from 'react';
+import { useSelector } from 'react-redux';
 
 function App() {
-    const { user } = useContext(AuthContext);
+    // const { user } = useContext(AuthContext);
+    /**
+     * useSelector hook, expects a function as the input. The input function
+     * must accept state object which contains all the values stored 
+     * in the redux store. And from that state object, we can extract
+     * the value we need.
+     */
+    const user = useSelector(state => state.user);
 
     return (
         /** 
