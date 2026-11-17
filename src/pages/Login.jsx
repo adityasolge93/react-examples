@@ -10,6 +10,7 @@
 import { useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useDispatch } from 'react-redux';
+import axios from 'axios';
 
 function Login() {
     // const { login } = useContext(AuthContext);
@@ -27,7 +28,7 @@ function Login() {
         setFormData({
             ...formData,
             // [ ] square brackets tell javascript to evaluate value and not use it as is. 
-            [event.target.name]: event.target.value 
+            [event.target.name]: event.target.value
         });
     };
 
@@ -44,31 +45,30 @@ function Login() {
             isValid = false;
             newErrors.password = 'Password cannot be empty';
         }
-        
+
         setErrors(newErrors);
         return isValid;
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         setErrors({});
         setMessage(null);
         event.preventDefault(); // Practice Problem, identify the need for this.
 
         if (validate()) {
-            // We can proceed with API call.
-            // For now, we're hardcoding validation business logic
-            if (formData.email === 'test@test.com' && formData.password === 'test') {
-                // We need to perform redirection
-                
-                // This will come from API call.
-                const user = { name: 'John', email: 'test@test.com' };
-                // login(user);
+            try {
+                const response = await axios.post('http://localhost:5001/auth/login', {
+                    email: formData.email,
+                    password: formData.password
+                }, { withCredentails: true });
+
                 dispatch({
                     type: 'LOGIN',
-                    payload: user
+                    payload: response.data.user
                 });
-            } else {
-                setErrors({ message: 'Invalid Credentials'});
+            } catch (error) {
+                console.log(error);
+                setErrors({ message: 'Invalid credentials' });
             }
         }
     };
@@ -78,31 +78,31 @@ function Login() {
             <h3>Login to continue</h3>
 
             {message && (
-                <div style={{ color: 'green '}}>{message}</div>
+                <div style={{ color: 'green ' }}>{message}</div>
             )}
 
             {errors.message && (
-                <div style={{ color: 'red'}}>{errors.message}</div>
+                <div style={{ color: 'red' }}>{errors.message}</div>
             )}
 
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>Email</label>
                     <input name="email" onChange={handleChange}
-                        type="text" value={formData.email} 
-                        placeholder="Enter your email" 
+                        type="text" value={formData.email}
+                        placeholder="Enter your email"
                     />
                     {errors.email && (
                         <label style={{ color: 'red' }}>{errors.email}</label>
                     )}
-                    
+
                 </div>
 
                 <div>
                     <label>Password</label>
                     <input name="password" onChange={handleChange}
-                        type="password" value={formData.password} 
-                        placeholder="Enter your password" 
+                        type="password" value={formData.password}
+                        placeholder="Enter your password"
                     />
                     {errors.password && (
                         <label style={{ color: 'red' }}>{errors.password}</label>

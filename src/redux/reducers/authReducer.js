@@ -6,7 +6,7 @@
  * (2) Payload (updated value).
  * Example action object: { type: 'some-type', payload: { updated value} }
  * 
- * state: This contains all the current values stored in the redux.
+ * state: This contains all the current values stored in the redux store.
  */ 
 export const authReducer = (state = null, action) => {
     if (action.type) {
