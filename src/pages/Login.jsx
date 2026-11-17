@@ -60,7 +60,7 @@ function Login() {
                 const response = await axios.post('http://localhost:5001/auth/login', {
                     email: formData.email,
                     password: formData.password
-                }, { withCredentails: true });
+                }, { withCredentials: true });
 
                 dispatch({
                     type: 'LOGIN',

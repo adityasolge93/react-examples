@@ -10,9 +10,9 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import AppLayout from './components/AppLayout';
 import { Navigate } from 'react-router-dom';
-import { AuthContext } from './context/AuthContext';
-import { useContext } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function App() {
     // const { user } = useContext(AuthContext);
@@ -23,6 +23,36 @@ function App() {
      * the value we need.
      */
     const user = useSelector(state => state.user);
+    const dispatch = useDispatch();
+
+    const [loading, setLoading] = useState(true);
+
+    const isUserLoggedIn = async () => {
+        try {
+            const response = await axios.get('http://localhost:5001/auth/is-user-logged-in', 
+                { withCredentials: true }
+            );
+
+            dispatch({
+                type: 'LOGIN',
+                payload: response.data.user
+            });
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        isUserLoggedIn();
+    }, []);
+
+    if (loading) {
+        return (
+            <><h1>Loading...</h1></>
+        );
+    }
 
     return (
         /** 
