@@ -9,6 +9,7 @@ import Practice4 from './pages/Practice4';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import AppLayout from './components/AppLayout';
+import ViewEmployees from './pages/ViewEmployees'
 import { Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -76,6 +77,12 @@ function App() {
             <Route path="/dashboard" element={user ? 
                     <AppLayout>
                         <Dashboard />
+                    </AppLayout>
+                    : <Navigate to="/practice-5" />} 
+            />
+            <Route path="/view-employees" element={user ? 
+                    <AppLayout>
+                        <ViewEmployees />
                     </AppLayout>
                     : <Navigate to="/practice-5" />} 
             />

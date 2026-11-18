@@ -13,6 +13,7 @@ function Header() {
                 <Link to='/'>Home</Link>
                 {" "}
                 <Link to='/practice-5'>Login</Link>
+                <Link to='/view-employees'>View Employees</Link>
                 {" "}
                 {" "}
                 {" "}
