@@ -10,16 +10,13 @@ function ViewEmployees() {
         currentPage: 1,
         totalPages: 1,
         totalItems: 0,
-        itemsPerPage: 10
+        itemsPerPage: 1
     });
 
     const getEmployees = async () => {
         try {
             const response = await axios.get(
-                `http://localhost:5001/employee/get-all?
-                        page=${pagination.currentPage}&
-                        limit=${pagination.itemsPerPage}
-                `, { withCredentials: true });
+                `http://localhost:5001/employee/get-all?page=${pagination.currentPage}&limit=${pagination.itemsPerPage}`, { withCredentials: true });
             setEmployees(response.data.employees);
             setPagination(response.data.pagination);
         } catch (error) {
@@ -30,9 +27,18 @@ function ViewEmployees() {
         }
     };
 
+    const handlePageChange = (newPage) => {
+        if (newPage >= 1 && newPage <= pagination.totalPages) {
+            setPagination((prev) => ({
+                ...prev, 
+                currentPage: newPage
+            }));
+        }
+    };
+
     useEffect(() => {
         getEmployees();
-    }, []);
+    }, [pagination.currentPage]);
 
     return (
         <div>
@@ -78,6 +84,27 @@ function ViewEmployees() {
                         )}
                     </tbody>
                 </table>
+            </div>
+            <div>
+                <nav>
+                    <button type="button" 
+                            onClick={() => handlePageChange(pagination.currentPage - 1)}
+                            disabled = {pagination.currentPage <= 1 || loading}
+                    >
+                        Prev
+                    </button>
+                        {' '}
+                    <span>
+                        Page {pagination.currentPage} of {pagination.totalPages}
+                    </span>
+                        {' '}
+                    <button type="button" 
+                            onClick={() => handlePageChange(pagination.currentPage + 1)}
+                            disabled = {pagination.currentPage >= pagination.totalPages || loading}
+                    >
+                        Next
+                    </button>
+                </nav>
             </div>
         </div>
     );
